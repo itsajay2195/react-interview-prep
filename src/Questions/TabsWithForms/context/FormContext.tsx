@@ -13,7 +13,7 @@ const formReducer = (state, action) => {
   }
 };
 
-export const FormProvider = ({ children, initialState }) => {
+export const FormProvider = ({ initialState, children }) => {
   const [state, dispatch] = useReducer(formReducer, initialState);
 
   return (
