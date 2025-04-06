@@ -24955,19 +24955,21 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _clientDefault = parcelHelpers.interopDefault(_client);
 var _indexCss = require("./index.css");
+var _otpForm = require("./Questions/OTP/OtpForm");
+var _otpFormDefault = parcelHelpers.interopDefault(_otpForm);
 var _formComponent = require("./Questions/TabsWithForms/FormComponent");
 var _formComponentDefault = parcelHelpers.interopDefault(_formComponent);
 function App() {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "app",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formComponentDefault.default), {}, void 0, false, {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _otpFormDefault.default), {}, void 0, false, {
             fileName: "src/App.js",
-            lineNumber: 9,
+            lineNumber: 11,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 8,
+        lineNumber: 9,
         columnNumber: 5
     }, this);
 }
@@ -24981,7 +24983,7 @@ $RefreshReg$(_c, "App");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom/client":"hrvwu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./index.css":"irmnC","./Questions/TabsWithForms/FormComponent":"jOo0o"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom/client":"hrvwu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./index.css":"irmnC","./Questions/TabsWithForms/FormComponent":"jOo0o","./Questions/OTP/OtpForm":"fni0a"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27331,7 +27333,7 @@ $RefreshReg$(_c, "FormComponent");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","./context/FormContext":"gcCXa","./utils":"6n3TE","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./components/TabsWithForm":"auEvr"}],"gcCXa":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","./context/FormContext":"gcCXa","./components/TabsWithForm":"auEvr","./utils":"6n3TE","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"gcCXa":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$8045 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$8045.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -27361,7 +27363,7 @@ const formReducer = (state, action)=>{
             return state;
     }
 };
-const FormProvider = ({ children, initialState })=>{
+const FormProvider = ({ initialState, children })=>{
     _s();
     const [state, dispatch] = (0, _react.useReducer)(formReducer, initialState);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(FormContext.Provider, {
@@ -27391,22 +27393,219 @@ $RefreshReg$(_c, "FormProvider");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"6n3TE":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"auEvr":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$1b60 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$1b60.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$1b60.prelude(module);
+
+try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initializeFormState", ()=>initializeFormState);
-var _config = require("./Config");
-const initializeFormState = ()=>{
-    const state = {};
-    (0, _config.CONFIG).forEach((tab)=>{
-        tab.children.forEach((field)=>{
-            state[field.fieldName] = "";
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _formContext = require("../context/FormContext");
+var _config = require("../Config");
+var _itemRenderer = require("./ItemRenderer");
+var _itemRendererDefault = parcelHelpers.interopDefault(_itemRenderer);
+var _button = require("./Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _s = $RefreshSig$();
+const TabsWithForm = ()=>{
+    _s();
+    const { state, dispatch } = (0, _formContext.useFormContext)();
+    const [currentIndex, setCurrentIndex] = (0, _react.useState)(0);
+    const [errors, setErrors] = (0, _react.useState)({});
+    const onNextPress = (0, _react.useCallback)(()=>{
+        setCurrentIndex((prev)=>{
+            if (prev + 1 > (0, _config.CONFIG)?.length - 1) return 0;
+            else return prev + 1;
         });
-    });
-    return state;
+    }, []);
+    const onPrevPress = (0, _react.useCallback)(()=>{
+        setCurrentIndex((prev)=>{
+            if (prev - 1 < 0) return (0, _config.CONFIG)?.length - 1;
+            else return prev - 1;
+        });
+    }, []);
+    const handleChange = (0, _react.useCallback)((field, value)=>{
+        dispatch({
+            type: "UPDATE_FIELD",
+            field: field,
+            value
+        });
+    }, []);
+    const validateForm = (formData)=>{
+        const errors = {};
+        (0, _config.CONFIG).forEach((tab)=>{
+            tab.children.forEach((field)=>{
+                const { fieldName, properties } = field;
+                const { validationRegex, minLength, maxLength } = properties;
+                const value = formData[fieldName] || "";
+                // Check length
+                if (minLength && value.length < minLength) errors[fieldName] = `${fieldName} must be at least ${minLength} characters.`;
+                else if (maxLength && value.length > maxLength) errors[fieldName] = `${fieldName} must be less than ${maxLength} characters.`;
+                // Check regex
+                if (validationRegex && value) {
+                    const regex = new RegExp(validationRegex);
+                    if (!regex.test(value)) errors[fieldName] = `${fieldName} is invalid.`;
+                }
+            });
+        });
+        setErrors(errors);
+        return errors;
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        style: {
+            fisplay: "flex",
+            flexDirection: "column",
+            flex: 1
+        },
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    flex: 1,
+                    justifyContent: "space-around"
+                },
+                children: (0, _config.CONFIG)?.map((item, index)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            borderBottom: currentIndex === index ? "4px solid white" : "none"
+                        },
+                        onClick: ()=>{
+                            setCurrentIndex(index);
+                        },
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            style: {
+                                padding: 20,
+                                fontWeight: "bold",
+                                fontSize: 20
+                            },
+                            children: item?.title
+                        }, void 0, false, {
+                            fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                            lineNumber: 86,
+                            columnNumber: 15
+                        }, undefined)
+                    }, index?.toString(), false, {
+                        fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                        lineNumber: 76,
+                        columnNumber: 13
+                    }, undefined);
+                })
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                lineNumber: 73,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100vh"
+                },
+                children: [
+                    (0, _config.CONFIG)[currentIndex]?.children?.map((field, index)=>{
+                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _itemRendererDefault.default), {
+                                item: field,
+                                handleChange: handleChange,
+                                value: state?.[field?.fieldName],
+                                error: errors?.[field?.fieldName]
+                            }, void 0, false, {
+                                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                                lineNumber: 107,
+                                columnNumber: 15
+                            }, undefined)
+                        }, index?.toString(), false, {
+                            fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                            lineNumber: 105,
+                            columnNumber: 13
+                        }, undefined);
+                    }),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            display: "flex",
+                            // flex: 1,
+                            justifyContent: "center",
+                            gap: 20,
+                            margin: 40
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                label: "prev",
+                                style: {
+                                    backgroundColor: "dodgerblue",
+                                    padding: "15px 30px"
+                                },
+                                onClick: onPrevPress
+                            }, void 0, false, {
+                                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                                lineNumber: 126,
+                                columnNumber: 11
+                            }, undefined),
+                            currentIndex === (0, _config.CONFIG)?.length - 1 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                label: "Submit",
+                                style: {
+                                    backgroundColor: "dodgerblue",
+                                    padding: "15px 30px"
+                                },
+                                onClick: ()=>validateForm(state)
+                            }, void 0, false, {
+                                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                                lineNumber: 133,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                label: "Next",
+                                style: {
+                                    backgroundColor: "dodgerblue",
+                                    padding: "15px 30px"
+                                },
+                                onClick: onNextPress
+                            }, void 0, false, {
+                                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                                lineNumber: 139,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                        lineNumber: 117,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+                lineNumber: 100,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+        lineNumber: 72,
+        columnNumber: 5
+    }, undefined);
 };
+_s(TabsWithForm, "ZIXtB8eAA+pWPQbFLrmJ5kIR+fw=", false, function() {
+    return [
+        (0, _formContext.useFormContext)
+    ];
+});
+_c = TabsWithForm;
+exports.default = TabsWithForm;
+var _c;
+$RefreshReg$(_c, "TabsWithForm");
 
-},{"./Config":"foS1l","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"foS1l":[function(require,module,exports,__globalThis) {
+  $parcel$ReactRefreshHelpers$1b60.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../context/FormContext":"gcCXa","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../Config":"foS1l","./ItemRenderer":"hs1fP","./Button":"dKecO"}],"foS1l":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CONFIG", ()=>CONFIG);
@@ -27543,12 +27742,12 @@ const CONFIG = [
     }
 ];
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"auEvr":[function(require,module,exports,__globalThis) {
-var $parcel$ReactRefreshHelpers$1b60 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-$parcel$ReactRefreshHelpers$1b60.init();
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"hs1fP":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$2852 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$2852.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
 var prevRefreshSig = globalThis.$RefreshSig$;
-$parcel$ReactRefreshHelpers$1b60.prelude(module);
+$parcel$ReactRefreshHelpers$2852.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27556,41 +27755,402 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _formContext = require("../context/FormContext");
-var _s = $RefreshSig$();
-const TabsWithForm = ()=>{
-    _s();
-    const { state, dispatch } = (0, _formContext.useFormContext)();
-    console.log("state>>>", state);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-            children: "TabsWithForm"
-        }, void 0, false, {
-            fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
-            lineNumber: 9,
-            columnNumber: 7
-        }, undefined)
+var _shortText = require("./ShortText");
+var _shortTextDefault = parcelHelpers.interopDefault(_shortText);
+var _dropDown = require("./DropDown");
+var _dropDownDefault = parcelHelpers.interopDefault(_dropDown);
+const ItemRenderer = ({ item, handleChange, value, error })=>{
+    if (item?.fieldType === "SHORT_TEXT") return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shortTextDefault.default), {
+        label: item?.fieldName,
+        name: item?.fieldName,
+        type: item?.properties?.type,
+        value: value,
+        handleChange: handleChange,
+        error: error
     }, void 0, false, {
-        fileName: "src/Questions/TabsWithForms/components/TabsWithForm.tsx",
+        fileName: "src/Questions/TabsWithForms/components/ItemRenderer.tsx",
         lineNumber: 8,
-        columnNumber: 5
+        columnNumber: 7
+    }, undefined);
+    else if (item?.fieldType === "DROPDOWN") return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _dropDownDefault.default), {
+        label: item?.fieldName,
+        name: item?.fieldName,
+        type: item?.properties?.type,
+        value: value,
+        handleChange: handleChange,
+        options: item?.properties?.options,
+        error: error
+    }, void 0, false, {
+        fileName: "src/Questions/TabsWithForms/components/ItemRenderer.tsx",
+        lineNumber: 19,
+        columnNumber: 7
     }, undefined);
 };
-_s(TabsWithForm, "hlB8DQAFSjUTziWnoApujP41Dkk=", false, function() {
-    return [
-        (0, _formContext.useFormContext)
-    ];
-});
-_c = TabsWithForm;
-exports.default = TabsWithForm;
+_c = ItemRenderer;
+exports.default = ItemRenderer;
 var _c;
-$RefreshReg$(_c, "TabsWithForm");
+$RefreshReg$(_c, "ItemRenderer");
 
-  $parcel$ReactRefreshHelpers$1b60.postlude(module);
+  $parcel$ReactRefreshHelpers$2852.postlude(module);
 } finally {
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../context/FormContext":"gcCXa","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["ihYAY","a0t4e"], "a0t4e", "parcelRequireea52", null, null, "http://localhost:1234")
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","./ShortText":"2qmWb","./DropDown":"hPnBQ","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"2qmWb":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$5b0f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$5b0f.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5b0f.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const ShortText = ({ label, type = "text", name, value, onChange, error, placeholder = "", maxLength, minLength, options, handleChange })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "input-field",
+        style: {
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            width: "40%",
+            margin: 20
+        },
+        children: [
+            label && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: name,
+                children: label
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/ShortText.tsx",
+                lineNumber: 39,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                type: type,
+                name: name,
+                value: value || "",
+                placeholder: placeholder,
+                maxLength: maxLength,
+                minLength: minLength,
+                style: {
+                    height: 40,
+                    borderRadius: 10
+                },
+                onChange: (e)=>handleChange?.(e.target.name, e.target.value)
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/ShortText.tsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, undefined),
+            error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                className: "error-text",
+                children: error
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/ShortText.tsx",
+                lineNumber: 50,
+                columnNumber: 17
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/Questions/TabsWithForms/components/ShortText.tsx",
+        lineNumber: 29,
+        columnNumber: 5
+    }, undefined);
+};
+_c = ShortText;
+exports.default = ShortText;
+var _c;
+$RefreshReg$(_c, "ShortText");
+
+  $parcel$ReactRefreshHelpers$5b0f.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"hPnBQ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$04d2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$04d2.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$04d2.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const DropDown = ({ label, type = "text", name, value, onChange, error, placeholder = "", maxLength, minLength, options, handleChange })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "input-field ",
+        style: {
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            width: "40%",
+            margin: 20
+        },
+        children: [
+            label && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: name,
+                children: label
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+                lineNumber: 39,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
+                name: name,
+                value: value,
+                onChange: (e)=>handleChange?.(e.target.name, e.target.value),
+                style: {
+                    padding: 10
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                        value: "",
+                        disabled: true,
+                        children: "Select an option"
+                    }, void 0, false, {
+                        fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+                        lineNumber: 46,
+                        columnNumber: 9
+                    }, undefined),
+                    options?.map((option)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                            value: option.value,
+                            style: {
+                                padding: 20
+                            },
+                            children: option.value
+                        }, option.id, false, {
+                            fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+                            lineNumber: 50,
+                            columnNumber: 11
+                        }, undefined))
+                ]
+            }, void 0, true, {
+                fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, undefined),
+            error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                className: "error-text",
+                children: error
+            }, void 0, false, {
+                fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+                lineNumber: 55,
+                columnNumber: 17
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/Questions/TabsWithForms/components/DropDown.tsx",
+        lineNumber: 29,
+        columnNumber: 5
+    }, undefined);
+};
+_c = DropDown;
+exports.default = DropDown;
+var _c;
+$RefreshReg$(_c, "DropDown");
+
+  $parcel$ReactRefreshHelpers$04d2.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"dKecO":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$9e81 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$9e81.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9e81.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _buttonCss = require("../css/Button.css"); // Import CSS for styling
+function Button({ label, onClick, type = "button", style, disabled = false }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+        type: type,
+        className: "custom-button",
+        onClick: onClick,
+        style: style,
+        disabled: disabled,
+        children: label
+    }, void 0, false, {
+        fileName: "src/Questions/TabsWithForms/components/Button.tsx",
+        lineNumber: 6,
+        columnNumber: 5
+    }, this);
+}
+_c = Button;
+exports.default = Button;
+var _c;
+$RefreshReg$(_c, "Button");
+
+  $parcel$ReactRefreshHelpers$9e81.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../css/Button.css":"5AErG","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"5AErG":[function() {},{}],"6n3TE":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initializeFormState", ()=>initializeFormState);
+var _config = require("./Config");
+const initializeFormState = ()=>{
+    const state = {};
+    (0, _config.CONFIG).forEach((tab)=>{
+        tab.children.forEach((field)=>{
+            state[field.fieldName] = "";
+        });
+    });
+    return state;
+};
+
+},{"./Config":"foS1l","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fni0a":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$b725 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$b725.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$b725.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _otpInputs = require("./components/OtpInputs");
+var _otpInputsDefault = parcelHelpers.interopDefault(_otpInputs);
+var _s = $RefreshSig$();
+const OtpForm = ()=>{
+    _s();
+    const inputRefs = (0, _react.useRef)([]);
+    const handleChange = (0, _react.useCallback)((e, index)=>{
+        const value = e.target.value;
+        if (value && index < inputRefs.current?.length - 1) inputRefs.current?.[index + 1]?.focus();
+    }, []);
+    const getValues = (0, _react.useCallback)(()=>{
+        const otp = inputRefs.current.map((input)=>input.value).join("");
+        console.log("otp>>>>", otp);
+        return otp;
+    }, []);
+    (0, _react.useEffect)(()=>{
+        inputRefs.current?.[0]?.focus();
+    }, []);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _otpInputsDefault.default), {
+        length: 4,
+        getValues: getValues,
+        handleChange: handleChange,
+        listRef: inputRefs
+    }, void 0, false, {
+        fileName: "src/Questions/OTP/OtpForm.tsx",
+        lineNumber: 23,
+        columnNumber: 5
+    }, undefined);
+};
+_s(OtpForm, "Bmc9A+8Sc6MhSrRHZyyJRtpkxS0=");
+_c = OtpForm;
+exports.default = OtpForm;
+var _c;
+$RefreshReg$(_c, "OtpForm");
+
+  $parcel$ReactRefreshHelpers$b725.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","./components/OtpInputs":"hrtZ9","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"hrtZ9":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$9c7c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$9c7c.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9c7c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const OtpInputs = ({ length, getValues, handleChange, listRef })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        style: {
+            display: "flex",
+            flex: 1,
+            flexDirection: "column",
+            height: "100vh",
+            alignItems: "center",
+            gap: 20
+        },
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    gap: 10
+                },
+                children: Array.from({
+                    length
+                })?.map((item, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "text",
+                        maxLength: "1",
+                        onChange: (e)=>handleChange(e, index),
+                        ref: (ref)=>listRef.current[index] = ref,
+                        style: {
+                            width: "40px",
+                            height: "50px",
+                            textAlign: "center",
+                            fontSize: "24px",
+                            borderRadius: "6px",
+                            border: "1px solid #ccc"
+                        }
+                    }, index, false, {
+                        fileName: "src/Questions/OTP/components/OtpInputs.tsx",
+                        lineNumber: 17,
+                        columnNumber: 11
+                    }, undefined))
+            }, void 0, false, {
+                fileName: "src/Questions/OTP/components/OtpInputs.tsx",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: getValues,
+                style: {
+                    padding: 10,
+                    backgroundColor: "red",
+                    width: "20%"
+                },
+                children: "Get values"
+            }, void 0, false, {
+                fileName: "src/Questions/OTP/components/OtpInputs.tsx",
+                lineNumber: 35,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/Questions/OTP/components/OtpInputs.tsx",
+        lineNumber: 5,
+        columnNumber: 5
+    }, undefined);
+};
+_c = OtpInputs;
+exports.default = OtpInputs;
+var _c;
+$RefreshReg$(_c, "OtpInputs");
+
+  $parcel$ReactRefreshHelpers$9c7c.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["ihYAY","a0t4e"], "a0t4e", "parcelRequireea52", null, null, "http://localhost:1234")
 
 //# sourceMappingURL=parcel-react-app.31b563d9.js.map
