@@ -4,7 +4,7 @@ import OtpInputs from "./components/OtpInputs";
 const OtpForm = () => {
   const inputRefs = useRef([]);
   const handleChange = useCallback((e, index) => {
-    const value = e.target.value;
+    const value = e.target.value?.trim();
     if (value && index < inputRefs.current?.length - 1) {
       inputRefs.current?.[index + 1]?.focus();
     }
